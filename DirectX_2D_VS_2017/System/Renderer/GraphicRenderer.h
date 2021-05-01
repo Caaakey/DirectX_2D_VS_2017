@@ -37,7 +37,7 @@ public:
 
 	HRESULT CreateBitmap(
 		_Out_ ID2D1Bitmap** pBitmap,
-		_In_ std::wstring fileName, _In_ float width = 1.0f, _In_ float height = 1.0f,
+		_In_ std::wstring filePath, _In_ float width = 1.0f, _In_ float height = 1.0f,
 		_In_ float alphaThresholdPercent = 0.0f,
 		_In_ WICBitmapDitherType diter = WICBitmapDitherTypeNone,
 		_In_ WICBitmapPaletteType palette = WICBitmapPaletteTypeCustom);

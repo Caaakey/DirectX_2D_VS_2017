@@ -13,7 +13,7 @@ MainScene::~MainScene()
 
 HRESULT MainScene::Start()
 {
-	m_Sprite = SpriteModule::CreateSprite(L"../_Resources/Iceland.jpg");
+	m_Sprite = SpriteModule::CreateSprite(L"../_Resources/Iceland1.jpg");
 
 	return S_OK;
 }

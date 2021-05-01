@@ -149,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Managers\Timer\Timer.h" />
+    <ClInclude Include="Utility\FileUtility.h" />
+    <ClInclude Include="Utility\StringUtility.h" />
     <ClInclude Include="_Components\Sprite\SpriteModule.h" />
     <ClInclude Include="_Scenes\MainScene.h" />
     <ClInclude Include="System\Renderer\GraphicRenderer.h" />

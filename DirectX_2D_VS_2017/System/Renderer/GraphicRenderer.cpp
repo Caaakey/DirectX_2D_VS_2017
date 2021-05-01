@@ -58,9 +58,10 @@ void GraphicRenderer::EndDraw()
 	m_RenderTarget->EndDraw();
 }
 
+#include <comdef.h>
 HRESULT GraphicRenderer::CreateBitmap(
 	_Out_ ID2D1Bitmap** pBitmap,
-	_In_ std::wstring fileName, _In_ float width, _In_ float height, 
+	_In_ std::wstring filePath, _In_ float width, _In_ float height, 
 	_In_ float alphaThresholdPercent,
 	_In_ WICBitmapDitherType dither,
 	_In_ WICBitmapPaletteType palette)
@@ -71,8 +72,14 @@ HRESULT GraphicRenderer::CreateBitmap(
 
 	try
 	{
+		std::string convertStr = StringUtility::ConvertString(filePath);
+		if (!FileUtility::Exists(convertStr))
+		{
+			HThrow((HRESULT)0x80070002);
+		}
+
 		HThrow(m_WICFactory->CreateDecoderFromFilename(
-			fileName.c_str(),
+			filePath.c_str(),
 			nullptr,
 			GENERIC_READ,
 			WICDecodeMetadataCacheOnDemand,

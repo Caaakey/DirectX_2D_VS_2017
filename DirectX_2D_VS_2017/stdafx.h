@@ -26,6 +26,7 @@
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 #pragma comment(lib, "VLD/lib/vld.lib")
 #include <VLD/vld.h>
+#include <comdef.h>
 
 #define HResult(hr)										\
 {														\
@@ -48,20 +49,21 @@
 
 #define HThrow(hr)										\
 {														\
-	if (FAILED((HRESULT)hr)) {							\
+	HRESULT hResult = (HRESULT)hr;						\
+	if (FAILED(hResult)) {								\
 		std::wstring filePath = __FILEW__;				\
 		filePath = filePath.substr(filePath.find_last_of(L"/\\") + 1);	\
 		wprintf(L"[%ls\t:\t%d]", filePath.c_str(), __LINE__);			\
-		LPWSTR str = nullptr;							\
+		_com_error err(hr);								\
 		FormatMessage(									\
 			FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_ALLOCATE_BUFFER,	\
 			nullptr,													\
-			hr,															\
+			0,															\
 			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),					\
-			str,														\
+			nullptr,													\
 			0,															\
 			nullptr);													\
-			MessageBox(nullptr, str, L"Error", MB_OK);					\
+			MessageBox(nullptr, err.ErrorMessage(), L"Error", MB_OK);	\
 		throw hr;														\
 }	}																	\
 
@@ -71,3 +73,6 @@
 #endif
 
 #include "Utility/DefineUtility.h"
+
+#include "Utility/StringUtility.h"
+#include "Utility/FileUtility.h"
