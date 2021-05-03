@@ -32,8 +32,8 @@ void SpriteModule::Draw(float x, float y, float opacity)
 	D2D1_RECT_F UVPixel = D2D1::RectF(
 		x,
 		y,
-		x + _Application.Width,
-		y + _Application.Height
+		x + _Application->Width,
+		y + _Application->Height
 	);
 
 	D2D1_RECT_F viewSize = D2D1::RectF(

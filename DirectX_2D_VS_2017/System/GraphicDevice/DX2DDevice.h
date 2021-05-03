@@ -26,8 +26,11 @@ private:
 	IWICImagingFactory*		m_WICFactory;
 	ID2D1HwndRenderTarget*	m_RenderTarget;
 
+	ID2D1SolidColorBrush* m_SolidBrush;
+
 public:
 	ID2D1HwndRenderTarget* RenderTarget() const { return m_RenderTarget; }
+	ID2D1SolidColorBrush* GetBrush() const { return m_SolidBrush; }
 
 public:
 	HRESULT OnCreateDeviceResource(HWND hWnd);

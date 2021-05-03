@@ -2,7 +2,8 @@
 #include "DX2DDevice.h"
 
 DX2DDevice::DX2DDevice()
-	: m_D2DFactory(nullptr), m_DWriteFactory(nullptr), m_WICFactory(nullptr), m_RenderTarget(nullptr)
+	: m_D2DFactory(nullptr), m_DWriteFactory(nullptr), m_WICFactory(nullptr), m_RenderTarget(nullptr),
+	m_SolidBrush(nullptr)
 {
 }
 
@@ -12,6 +13,7 @@ DX2DDevice::~DX2DDevice()
 	SAFE_RELEASE(m_DWriteFactory);
 	SAFE_RELEASE(m_WICFactory);
 	SAFE_RELEASE(m_RenderTarget);
+	SAFE_RELEASE(m_SolidBrush);
 
 	CoUninitialize();
 }
@@ -38,6 +40,8 @@ HRESULT DX2DDevice::OnCreateDeviceResource(HWND hWnd)
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(hWnd, size),
 			&m_RenderTarget));
+
+	HResult(m_RenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_SolidBrush));
 
 	return S_OK;
 }

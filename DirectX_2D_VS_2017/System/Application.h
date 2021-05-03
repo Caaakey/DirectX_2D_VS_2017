@@ -1,13 +1,12 @@
 #pragma once
-#include "stdafx.h"
 
 class Application
 {
 public:
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	static Application& Get() {
+	static Application* Get() {
 		static Application instance;
-		return instance;
+		return &instance;
 	}
 
 	Application();

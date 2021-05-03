@@ -9,6 +9,10 @@ namespace Components
 		GameObject(std::string name);
 		~GameObject();
 		
+		void Start();
+		void Update();
+		void Render();
+
 	public:
 		Transform* transform;
 

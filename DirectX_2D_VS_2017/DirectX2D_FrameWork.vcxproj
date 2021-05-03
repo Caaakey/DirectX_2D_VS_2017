@@ -136,6 +136,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Managers\Camera\CameraManager.cpp" />
+    <ClCompile Include="Managers\Input\InputManager.cpp" />
     <ClCompile Include="Managers\Timer\Timer.cpp" />
     <ClCompile Include="_Components\GameObject.cpp" />
     <ClCompile Include="_Components\Transform.cpp" />
@@ -150,6 +152,8 @@
     <ClCompile Include="System\winMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Managers\Camera\CameraManager.h" />
+    <ClInclude Include="Managers\Input\InputManager.h" />
     <ClInclude Include="Managers\Timer\Timer.h" />
     <ClInclude Include="_Components\Component.h" />
     <ClInclude Include="_Components\Object.h" />
