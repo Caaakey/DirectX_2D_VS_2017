@@ -10,7 +10,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	
 	Application* application = &Application::Get();
-	GraphicRenderer* renderer = &GraphicRenderer::Get();
+	DX2DDevice* renderer = DX2DDevice::Get();
 
 	if (FAILED(application->OnCreate(hInstance, nCmdShow))) return false;
 	if (FAILED(renderer->OnCreateDeviceResource(application->GetHwnd()))) return false;

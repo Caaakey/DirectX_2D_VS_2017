@@ -1,23 +1,24 @@
 #pragma once
 #include <d2d1.h>
+#include <d2d1helper.h>
 #include <dwrite.h>
 #include <wincodec.h>
 
 #pragma comment(lib, "D2D1.lib")
 #pragma comment(lib, "DWrite.lib")
 
-class GraphicRenderer
+class DX2DDevice
 {
 public:
-	static GraphicRenderer& Get() {
-		static GraphicRenderer instance;
-		return instance;
+	static DX2DDevice* Get() {
+		static DX2DDevice instance;
+		return &instance;
 	}
 
-	GraphicRenderer();
-	GraphicRenderer(GraphicRenderer const&) = delete;
-	~GraphicRenderer();
-	void operator=(GraphicRenderer const&) = delete;
+	DX2DDevice();
+	DX2DDevice(DX2DDevice const&) = delete;
+	~DX2DDevice();
+	void operator=(DX2DDevice const&) = delete;
 
 private:
 	ID2D1Factory*			m_D2DFactory;
@@ -43,4 +44,5 @@ public:
 		_In_ WICBitmapPaletteType palette = WICBitmapPaletteTypeCustom);
 };
 
-#define _Renderer GraphicRenderer::Get()
+#define _DXDevice DX2DDevice::Get()
+#define _RenderTarget DX2DDevice::Get()->RenderTarget()

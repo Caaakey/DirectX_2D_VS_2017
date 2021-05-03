@@ -5,7 +5,7 @@ SpriteModule* SpriteModule::CreateSprite(std::wstring filePath)
 {
 	SpriteModule* sprite = new SpriteModule();
 
-	HRESULT hr = _Renderer.CreateBitmap(&sprite->m_Bitmap, filePath);
+	HRESULT hr = _DXDevice->CreateBitmap(&sprite->m_Bitmap, filePath);
 	if (FAILED(hr)) { SAFE_DELETE(sprite); }
 	else
 	{
@@ -41,7 +41,7 @@ void SpriteModule::Draw(float x, float y, float opacity)
 		BitmapSize.height
 	);
 
-	_Renderer.RenderTarget()->DrawBitmap(
+	_RenderTarget->DrawBitmap(
 		m_Bitmap,
 		UVPixel,
 		opacity,

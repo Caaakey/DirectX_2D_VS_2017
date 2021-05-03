@@ -14,5 +14,4 @@ public:
 		std::wstring wstr;
 		return wstr.assign(str.begin(), str.end());
 	}
-
 };

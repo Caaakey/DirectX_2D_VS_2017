@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "GraphicRenderer.h"
+#include "DX2DDevice.h"
 
-GraphicRenderer::GraphicRenderer()
+DX2DDevice::DX2DDevice()
 	: m_D2DFactory(nullptr), m_DWriteFactory(nullptr), m_WICFactory(nullptr), m_RenderTarget(nullptr)
 {
 }
 
-GraphicRenderer::~GraphicRenderer()
+DX2DDevice::~DX2DDevice()
 {
 	SAFE_RELEASE(m_D2DFactory);
 	SAFE_RELEASE(m_DWriteFactory);
@@ -16,7 +16,7 @@ GraphicRenderer::~GraphicRenderer()
 	CoUninitialize();
 }
 
-HRESULT GraphicRenderer::OnCreateDeviceResource(HWND hWnd)
+HRESULT DX2DDevice::OnCreateDeviceResource(HWND hWnd)
 {
 	RECT rect;
 	GetClientRect(hWnd, &rect);
@@ -42,24 +42,23 @@ HRESULT GraphicRenderer::OnCreateDeviceResource(HWND hWnd)
 	return S_OK;
 }
 
-void GraphicRenderer::OnResize(UINT width, UINT height)
+void DX2DDevice::OnResize(UINT width, UINT height)
 {
 	if (m_RenderTarget) m_RenderTarget->Resize(D2D1::SizeU(width, height));
 }
 
-void GraphicRenderer::BeginDraw()
+void DX2DDevice::BeginDraw()
 {
 	m_RenderTarget->BeginDraw();
 	m_RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::DarkGray));
 }
 
-void GraphicRenderer::EndDraw()
+void DX2DDevice::EndDraw()
 {
 	m_RenderTarget->EndDraw();
 }
 
-#include <comdef.h>
-HRESULT GraphicRenderer::CreateBitmap(
+HRESULT DX2DDevice::CreateBitmap(
 	_Out_ ID2D1Bitmap** pBitmap,
 	_In_ std::wstring filePath, _In_ float width, _In_ float height, 
 	_In_ float alphaThresholdPercent,
