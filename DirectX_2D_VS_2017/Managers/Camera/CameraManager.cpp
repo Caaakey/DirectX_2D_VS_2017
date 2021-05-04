@@ -3,7 +3,6 @@
 
 CameraManager::CameraManager()
 {
-	SetSize(_Application->Width, _Application->Height);
 }
 
 CameraManager::~CameraManager()
