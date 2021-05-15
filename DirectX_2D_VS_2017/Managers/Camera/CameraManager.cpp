@@ -7,4 +7,5 @@ CameraManager::CameraManager()
 
 CameraManager::~CameraManager()
 {
+	
 }

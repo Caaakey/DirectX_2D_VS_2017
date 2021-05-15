@@ -8,14 +8,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	
-	Application* application = Application::Get();
-	DX2DDevice* renderer = DX2DDevice::Get();
+	Application* pApplication = Application::Get();
+	DX2DDevice* pRenderer = DX2DDevice::Get();
 
-	if (FAILED(application->OnCreate(hInstance, nCmdShow))) return false;
-	if (FAILED(renderer->OnCreateDeviceResource(application->GetHwnd()))) return false;
+	if (FAILED(pApplication->OnCreate(hInstance, nCmdShow))) return FALSE;
+	if (FAILED(pRenderer->OnCreateDeviceResource(pApplication->GetHwnd()))) return FALSE;
 
-	MainScene* mainScene = new MainScene();
-	if (FAILED(mainScene->Start())) { SAFE_DELETE(mainScene); return false; }
+	MainScene* pMainScene = new MainScene();
+	if (FAILED(pMainScene->Start())) { SAFE_DELETE(pMainScene); return FALSE; }
 
 	MSG msg;
 	while (true)
@@ -29,17 +29,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			_Timer->UpdateTime();
-			mainScene->Update();
+			pMainScene->Update();
 
-			renderer->BeginDraw();
+			pRenderer->BeginDraw();
 			{
-				mainScene->Render();
+				pMainScene->Render();
+				_Timer->DrawFrame();
 			}
-			renderer->EndDraw();
+			pRenderer->EndDraw();
 		}
 	}
 
-	SAFE_DELETE(mainScene);
-
+	SAFE_DELETE(pMainScene);
 	return (int)msg.wParam;
 }

@@ -41,14 +41,21 @@ HRESULT DX2DDevice::OnCreateDeviceResource(HWND hWnd)
 			D2D1::HwndRenderTargetProperties(hWnd, size),
 			&m_RenderTarget));
 
-	HResult(m_RenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_SolidBrush));
+	HResult(
+		m_RenderTarget->CreateSolidColorBrush(
+			D2D1::ColorF(D2D1::ColorF::Black),
+			&m_SolidBrush));
 
 	return S_OK;
 }
 
 void DX2DDevice::OnResize(UINT width, UINT height)
 {
-	if (m_RenderTarget) m_RenderTarget->Resize(D2D1::SizeU(width, height));
+	if (m_RenderTarget) {
+		m_RenderTarget->Resize(D2D1::SizeU(width, height));
+		_Application->Width = width;
+		_Application->Height = height;
+	}
 }
 
 void DX2DDevice::BeginDraw()
@@ -63,8 +70,8 @@ void DX2DDevice::EndDraw()
 }
 
 HRESULT DX2DDevice::CreateBitmap(
-	_Out_ ID2D1Bitmap** pBitmap,
-	_In_ std::wstring filePath, _In_ float width, _In_ float height, 
+	_Out_ ID2D1Bitmap** ppBitmap,
+	_In_ std::wstring filePath,
 	_In_ float alphaThresholdPercent,
 	_In_ WICBitmapDitherType dither,
 	_In_ WICBitmapPaletteType palette)
@@ -77,9 +84,7 @@ HRESULT DX2DDevice::CreateBitmap(
 	{
 		std::string convertStr = StringUtility::ConvertString(filePath);
 		if (!FileUtility::Exists(convertStr))
-		{
 			HThrow((HRESULT)0x80070002);
-		}
 
 		HThrow(m_WICFactory->CreateDecoderFromFilename(
 			filePath.c_str(),
@@ -102,7 +107,7 @@ HRESULT DX2DDevice::CreateBitmap(
 		HThrow(m_RenderTarget->CreateBitmapFromWicBitmap(
 			pWICConverter,
 			nullptr,
-			pBitmap
+			ppBitmap
 		));
 	}
 	catch (const HRESULT hr)
@@ -117,6 +122,25 @@ HRESULT DX2DDevice::CreateBitmap(
 	SAFE_RELEASE(pWICConverter);
 	SAFE_RELEASE(pWICDecoder);
 	SAFE_RELEASE(pWICFrameDecode);
+
+	return S_OK;
+}
+
+HRESULT DX2DDevice::CreateTextFormat(
+	_Out_ IDWriteTextFormat** ppWriteTextFormat,
+	_In_ std::wstring fontName,
+	_In_ DWRITE_FONT_WEIGHT weight,
+	_In_ DWRITE_FONT_STYLE style,
+	_In_ DWRITE_FONT_STRETCH stretch,
+	_In_ float fontSize)
+{
+	HResult(m_DWriteFactory->CreateTextFormat(
+		fontName.c_str(),
+		nullptr,
+		weight, style, stretch,
+		fontSize,
+		L"",
+		ppWriteTextFormat));
 
 	return S_OK;
 }

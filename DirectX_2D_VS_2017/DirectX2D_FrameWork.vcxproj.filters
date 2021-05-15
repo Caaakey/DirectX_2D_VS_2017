@@ -39,6 +39,9 @@
     <ClCompile Include="Managers\Camera\CameraManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Managers\Font\FontManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,7 +53,7 @@
     <ClInclude Include="System\Application.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Headers.h">
+    <ClInclude Include="Headers.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Scenes\Interface\IScene.h">
@@ -78,6 +81,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Managers\Camera\CameraManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\Font\FontManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

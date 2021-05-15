@@ -26,7 +26,7 @@ private:
 	IWICImagingFactory*		m_WICFactory;
 	ID2D1HwndRenderTarget*	m_RenderTarget;
 
-	ID2D1SolidColorBrush* m_SolidBrush;
+	ID2D1SolidColorBrush*	m_SolidBrush;
 
 public:
 	ID2D1HwndRenderTarget* RenderTarget() const { return m_RenderTarget; }
@@ -40,11 +40,20 @@ public:
 	void EndDraw();
 
 	HRESULT CreateBitmap(
-		_Out_ ID2D1Bitmap** pBitmap,
-		_In_ std::wstring filePath, _In_ float width = 1.0f, _In_ float height = 1.0f,
+		_Out_ ID2D1Bitmap** ppBitmap,
+		_In_ std::wstring filePath,
 		_In_ float alphaThresholdPercent = 0.0f,
-		_In_ WICBitmapDitherType diter = WICBitmapDitherTypeNone,
+		_In_ WICBitmapDitherType dither = WICBitmapDitherTypeNone,
 		_In_ WICBitmapPaletteType palette = WICBitmapPaletteTypeCustom);
+
+	HRESULT CreateTextFormat(
+		_Out_ IDWriteTextFormat** ppWriteTextFormat,
+		_In_ std::wstring fontName,
+		_In_ DWRITE_FONT_WEIGHT weight = DWRITE_FONT_WEIGHT_NORMAL,
+		_In_ DWRITE_FONT_STYLE style = DWRITE_FONT_STYLE_NORMAL,
+		_In_ DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL,
+		_In_ float fontSize = 14.0f);
+
 };
 
 #define _RenderDevice DX2DDevice::Get()

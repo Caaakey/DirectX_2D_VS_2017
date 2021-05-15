@@ -40,7 +40,7 @@
 		return hr;														\
 }	}
 
-#define HThrow(hr)										\
+#define HThrow(hr)								\
 {														\
 	HRESULT hResult = (HRESULT)hr;						\
 	if (FAILED(hResult)) {								\
@@ -76,4 +76,4 @@ extern TCHAR* FORMAT_MESSAGE(DWORD err) { return nullptr; }
 #include "Utility/StringUtility.h"
 #include "Utility/FileUtility.h"
 
-#include "Utility/Headers.h"
+#include "Headers.h"

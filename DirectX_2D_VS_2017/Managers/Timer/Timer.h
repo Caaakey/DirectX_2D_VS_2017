@@ -5,31 +5,35 @@ class Timer
 public:
 	Timer();
 	static Timer* Get() {
-		static Timer Instance;
-		return &Instance;
+		static Timer instance;
+		return &instance;
 	}
 
 private:
-	bool isHardware;
+	bool m_SupportPerformanceFrequency;
 
-	float timeScale;
-	float timeElapsed;
-	__int64 preriodTime;
-	__int64 lastTime;
-	__int64 currTime;
+	float m_TimeScale;
+	float m_TimeElapsed;
+	__int64 m_PreriodTime;
+	__int64 m_LastTime;
+	__int64 m_CurrentTime;
 
-	unsigned long frameRate;
-	unsigned long fpsFrameCount;
+	unsigned long m_FrameRate;
+	unsigned long m_FpsFrameCount;
 
-	float fpsTimeElapsed;
-	float worldTime;
+	float m_FpsTimeElapsed;
+	float m_WorldTime;
 
 public:
-	inline float GetWorldTime(void) const { return worldTime; }
-	inline float GetFPSTime(void) { return (float)frameRate; }
-	inline float GetElapsedTime(void) const { return timeElapsed; }
+	const bool SupportPerformanceFrequency() const { return m_SupportPerformanceFrequency; }
+	inline float GetWorldTime(void) const { return m_WorldTime; }
+	inline float GetFPSTime(void) { return (float)m_FrameRate; }
+	inline float GetElapsedTime(void) const { return m_TimeElapsed; }
 
 public:
 	void UpdateTime(float frameLock = 60.0f);
+	void DrawFrame();
+
 };
+
 #define _Timer Timer::Get()

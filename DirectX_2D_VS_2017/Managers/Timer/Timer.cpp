@@ -5,45 +5,61 @@
 #include <mmsystem.h>
 
 Timer::Timer()
-	:currTime(0), fpsFrameCount(0), fpsTimeElapsed(0), frameRate(0),
-	timeElapsed(0), worldTime(0)
+	:m_CurrentTime(0), m_FpsFrameCount(0), m_FpsTimeElapsed(0), m_FrameRate(0),
+	m_TimeElapsed(0), m_WorldTime(0)
 {
-	if (QueryPerformanceFrequency((LARGE_INTEGER*)&preriodTime)) {
-		isHardware = true;
-		QueryPerformanceCounter((LARGE_INTEGER*)&lastTime);
-		timeScale = 1.0f / preriodTime;
+	if (QueryPerformanceFrequency((LARGE_INTEGER*)&m_PreriodTime)) {
+		m_SupportPerformanceFrequency = true;
+		QueryPerformanceCounter((LARGE_INTEGER*)&m_LastTime);
+		m_TimeScale = 1.0f / m_PreriodTime;
 	}
 	else {
-		isHardware = false;
-		lastTime = timeGetTime();
-		timeScale = 0.001f;
+		m_SupportPerformanceFrequency = false;
+		m_LastTime = timeGetTime();
+		m_TimeScale = 0.001f;
 	}
 }
 
 void Timer::UpdateTime(float frameLock)
 {
-	if (isHardware) QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-	else currTime = timeGetTime();
+	if (m_SupportPerformanceFrequency) QueryPerformanceCounter((LARGE_INTEGER*)&m_CurrentTime);
+	else m_CurrentTime = timeGetTime();
 
-	timeElapsed = (currTime - lastTime) * timeScale;
+	m_TimeElapsed = (m_CurrentTime - m_LastTime) * m_TimeScale;
 
 	if (frameLock > 0.0f) {
-		while (timeElapsed < (1.0f / frameLock)) {
-			if (isHardware) QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-			else currTime = timeGetTime();
+		while (m_TimeElapsed < (1.0f / frameLock)) {
+			if (m_SupportPerformanceFrequency) QueryPerformanceCounter((LARGE_INTEGER*)&m_CurrentTime);
+			else m_CurrentTime = timeGetTime();
 
-			timeElapsed = (currTime - lastTime) * timeScale;
+			m_TimeElapsed = (m_CurrentTime - m_LastTime) * m_TimeScale;
 		}
 	}
 
-	lastTime = currTime;
-	fpsFrameCount++;
-	fpsTimeElapsed += timeElapsed;
-	worldTime += timeElapsed;
+	m_LastTime = m_CurrentTime;
+	m_FpsFrameCount++;
+	m_FpsTimeElapsed += m_TimeElapsed;
+	m_WorldTime += m_TimeElapsed;
 
-	if (fpsTimeElapsed > 1.0f) {
-		frameRate = fpsFrameCount;
-		fpsFrameCount = 0;
-		fpsTimeElapsed = 0.0f;
+	if (m_FpsTimeElapsed > 1.0f) {
+		m_FrameRate = m_FpsFrameCount;
+		m_FpsFrameCount = 0;
+		m_FpsTimeElapsed = 0.0f;
 	}
+}
+
+void Timer::DrawFrame()
+{
+#ifdef _DEBUG
+	wchar_t wstr[256] = { 0, };
+	static wchar_t msg[] = L"WorldTime : %.2f\nFrameCount : %f\nFPS : %d";
+
+	_stprintf_s(wstr, msg, m_WorldTime, m_TimeElapsed, m_FrameRate);
+	_RenderTarget->DrawTextW(
+		wstr,
+		static_cast<UINT32>(wcslen(wstr)),
+		_Font->Default(),
+		D2D1::RectF(0.0f, 0.0f, 200.0f, 100.0f),
+		_RenderDevice->GetBrush());
+#endif
 }

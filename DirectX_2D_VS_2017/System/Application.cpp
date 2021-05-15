@@ -69,6 +69,9 @@ LRESULT Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	{
 	case WM_SIZE:
 	{
+		UINT w = LOWORD(lParam);
+		UINT h = HIWORD(lParam);
+		_RenderDevice->OnResize(w, h);
 	}
 	break;
 
