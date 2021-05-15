@@ -1,6 +1,6 @@
 #pragma once
 
-class CameraManager : public Components::Transform
+class CameraManager
 {
 public:
 	static CameraManager* Get() {

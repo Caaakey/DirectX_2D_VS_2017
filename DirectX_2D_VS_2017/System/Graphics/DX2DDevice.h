@@ -47,5 +47,5 @@ public:
 		_In_ WICBitmapPaletteType palette = WICBitmapPaletteTypeCustom);
 };
 
-#define _DXDevice DX2DDevice::Get()
+#define _RenderDevice DX2DDevice::Get()
 #define _RenderTarget DX2DDevice::Get()->RenderTarget()

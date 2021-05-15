@@ -18,7 +18,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="System\winMain.cpp">
+    <ClCompile Include="winMain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="System\Application.cpp">
@@ -30,16 +30,7 @@
     <ClCompile Include="Managers\Timer\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="_Components\Sprite\SpriteModule.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="System\GraphicDevice\DX2DDevice.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="_Components\Transform.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="_Components\GameObject.cpp">
+    <ClCompile Include="System\Graphics\DX2DDevice.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Managers\Input\InputManager.cpp">
@@ -59,7 +50,7 @@
     <ClInclude Include="System\Application.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\DefineUtility.h">
+    <ClInclude Include="Utility\Headers.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="_Scenes\Interface\IScene.h">
@@ -71,9 +62,6 @@
     <ClInclude Include="Managers\Timer\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="_Components\Sprite\SpriteModule.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\FileUtility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -83,16 +71,7 @@
     <ClInclude Include="_Components\Component.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="System\GraphicDevice\DX2DDevice.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="_Components\Transform.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="_Components\Object.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="_Components\GameObject.h">
+    <ClInclude Include="System\Graphics\DX2DDevice.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Managers\Input\InputManager.h">

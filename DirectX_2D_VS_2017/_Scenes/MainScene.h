@@ -1,5 +1,4 @@
 #pragma once
-#include "_Components/Sprite/SpriteModule.h"
 
 using namespace Components;
 class MainScene : public IScene
@@ -9,8 +8,6 @@ public:
 	~MainScene();
 
 private:
-	SpriteModule* m_Sprite;
-	GameObject* m_Pawn;
 
 public:
 	// IScene을(를) 통해 상속됨
