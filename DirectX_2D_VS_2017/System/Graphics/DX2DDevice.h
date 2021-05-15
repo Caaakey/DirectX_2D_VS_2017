@@ -27,6 +27,7 @@ private:
 	ID2D1HwndRenderTarget*	m_RenderTarget;
 
 	ID2D1SolidColorBrush*	m_SolidBrush;
+	D2D1_ANTIALIAS_MODE		m_AntialiasMode;
 
 public:
 	ID2D1HwndRenderTarget* RenderTarget() const { return m_RenderTarget; }

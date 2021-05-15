@@ -3,17 +3,18 @@
 
 DX2DDevice::DX2DDevice()
 	: m_D2DFactory(nullptr), m_DWriteFactory(nullptr), m_WICFactory(nullptr), m_RenderTarget(nullptr),
+	m_AntialiasMode(D2D1_ANTIALIAS_MODE_PER_PRIMITIVE),
 	m_SolidBrush(nullptr)
 {
 }
 
 DX2DDevice::~DX2DDevice()
 {
-	SAFE_RELEASE(m_D2DFactory);
-	SAFE_RELEASE(m_DWriteFactory);
-	SAFE_RELEASE(m_WICFactory);
-	SAFE_RELEASE(m_RenderTarget);
 	SAFE_RELEASE(m_SolidBrush);
+	SAFE_RELEASE(m_RenderTarget);
+	SAFE_RELEASE(m_WICFactory);
+	SAFE_RELEASE(m_DWriteFactory);
+	SAFE_RELEASE(m_D2DFactory);
 
 	CoUninitialize();
 }
@@ -40,6 +41,8 @@ HRESULT DX2DDevice::OnCreateDeviceResource(HWND hWnd)
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(hWnd, size),
 			&m_RenderTarget));
+
+	m_RenderTarget->SetAntialiasMode(m_AntialiasMode);
 
 	HResult(
 		m_RenderTarget->CreateSolidColorBrush(
